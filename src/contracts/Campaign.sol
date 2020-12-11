@@ -18,6 +18,7 @@ contract Campaign {
     string internal campaignProduct;
     uint256 internal minimumDonation;
     Request[] internal requests;
+    mapping(uint256 => bool) requestExists;
     mapping(address => bool) internal canApprove;
     uint256 internal backedBy;
     uint256 internal createdDate;
@@ -31,7 +32,7 @@ contract Campaign {
 
 
     modifier onlyManager() {
-        require(msg.sender == manager, 'Only manager can call this function.');
+        require(msg.sender == manager, 'Only manager can call this function');
         _;
     }
 
@@ -60,8 +61,12 @@ contract Campaign {
         return minimumDonation;
     }
 
-    function getCampaignRequests() public view returns(Request[] memory) {
+    function getCampaignRequests() public view returns (Request[] memory) {
         return requests;
+    }
+
+    function getCampaignRequest(uint256 _index) public view returns (Request memory) {
+        return requests[_index];
     }
 
     function getBackedBy() public view returns (uint256) {
@@ -89,10 +94,13 @@ contract Campaign {
     }
 
     function contribute() public payable {
-        require(block.timestamp <= lastDate, 'Campaign has expired.');
-        require(msg.value >= minimumDonation, 'Increase the contribution amount.');
-        canApprove[msg.sender] = true;
-        backedBy++;
+        require(block.timestamp <= lastDate, 'Campaign has expired');
+        require(msg.value >= minimumDonation, 'Increase the contribution amount');
+        
+        if (!canApprove[msg.sender]) {
+            canApprove[msg.sender] = true;
+            backedBy++;
+        }
     }
 
     function createRequest(string memory _description, uint256 _amount, address payable _recipient) public onlyManager {
@@ -105,14 +113,17 @@ contract Campaign {
             approvalCount: 0
         });
 
+        require(!requestExists[newRequest.id], 'Request already exists');
+
+        requestExists[newRequest.id] = true;
         requests.push(newRequest);
     }
 
     function approveRequest(uint256 _index) public {
         Request storage myRequest = requests[_index];
 
-        require(canApprove[msg.sender], 'To approve a request, contribute first.');
-        require(!hasApproved[myRequest.id][msg.sender], 'You have already approved this request.');
+        require(canApprove[msg.sender], 'To approve a request, contribute first');
+        require(!hasApproved[myRequest.id][msg.sender], 'You have already approved this request');
 
         hasApproved[myRequest.id][msg.sender] = true;
         myRequest.approvalCount++;
@@ -121,9 +132,9 @@ contract Campaign {
     function finalizeRequest(uint256 _index) public onlyManager {
         Request storage myRequest = requests[_index];
 
-        require(!myRequest.complete, 'This request has already been completed.');
-        require(myRequest.approvalCount > backedBy / 2, 'Not enough contributors have approved this request.');
-        require(address(this).balance >= myRequest.amount, 'Not enough contributions to pay for this request.');
+        require(!myRequest.complete, 'This request has already been completed');
+        require(myRequest.approvalCount > backedBy / 2, 'Not enough contributors have approved this request');
+        require(address(this).balance >= myRequest.amount, 'Not enough contributions to pay for this request');
 
         myRequest.complete = true;
         myRequest.recipient.transfer(myRequest.amount);

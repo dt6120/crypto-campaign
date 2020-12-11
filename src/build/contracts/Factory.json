@@ -59,7 +59,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.7.0+commit.9e61f92b\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"campaignAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"creator\",\"type\":\"address\"}],\"name\":\"CampaignCreated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_minimumDonation\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_duration\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_product\",\"type\":\"string\"}],\"name\":\"createCampaign\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDeployedCampaigns\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/D/dhruv/Desktop/cc/src/contracts/Factory.sol\":\"Factory\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/D/dhruv/Desktop/cc/src/contracts/Campaign.sol\":{\"keccak256\":\"0x77f083527269ea15aebdd805ca919ed2431f03843073b77f867b55467df3328b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://50e1b6b4b474cf96e021215b2f576a8016dcaa697b88da4f3a07aff7e681dd99\",\"dweb:/ipfs/QmXq9DdVyRrAqYbTJMNCX416dUYfFt4omqhgxquPREsvFU\"]},\"/D/dhruv/Desktop/cc/src/contracts/Factory.sol\":{\"keccak256\":\"0x7765c1affe816d135affad589d63494beea9111559cf1091af43f4fffa9dd4c4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1b9ed0b24a29671190a2695e519c08222dd464d739bcd73270224f27068550a3\",\"dweb:/ipfs/QmSStzxoixeeyvDek9hm4rJQ2ZEew7LTg1TeXHFrrsCuh8\"]}},\"version\":1}",
@@ -1778,9 +1779,37 @@
     "name": "solc",
     "version": "0.7.0+commit.9e61f92b.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "1607622383855": {
+      "events": {
+        "0x6056366dba45431fd6a8854ad9f2594942b02c4f2c3f6fbc329b3079b027b8b4": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "campaignAddress",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "creator",
+              "type": "address"
+            }
+          ],
+          "name": "CampaignCreated",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x656990094cdC5B6f9639c975eFe84c9015b251Aa",
+      "transactionHash": "0xfca40433cb2e24a64fec1a5b299d308a04d8a3c0824969c56d34d9f00f828300"
+    }
+  },
   "schemaVersion": "3.3.2",
-  "updatedAt": "2020-12-10T17:23:57.401Z",
+  "updatedAt": "2020-12-10T17:46:48.833Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
