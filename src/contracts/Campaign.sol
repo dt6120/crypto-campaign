@@ -27,8 +27,8 @@ contract Campaign {
 
     event ContributionToCampaign(address sender, address this, uint256 amount);
     event CampaignRequestCreated(address receiver, uint256 amount);
-    event CampaignRequestApproved();
-    event CamapignRequestFinalized();
+    event CampaignRequestApproved(uint256 requestId);
+    event CamapignRequestFinalized(uint256 requestId);
 
 
     modifier onlyManager() {
@@ -45,44 +45,19 @@ contract Campaign {
         lastDate = block.timestamp + _duration;
     }
 
-    function getManager() public view returns (address) {
-        return manager;
-    }
-
-    function getCampaignName() public view returns (string memory) {
-        return campaignName;
-    }
-
-    function getCampaignProduct() public view returns (string memory) {
-        return campaignProduct;
-    }
-
-    function getMinimumDonation() public view returns (uint256) {
-        return minimumDonation;
-    }
-
-    function getCampaignRequests() public view returns (Request[] memory) {
-        return requests;
-    }
-
-    function getCampaignRequest(uint256 _index) public view returns (Request memory) {
-        return requests[_index];
-    }
-
-    function getBackedBy() public view returns (uint256) {
-        return backedBy;
-    }
-
-    function getCreatedDate() public view returns (uint256) {
-        return createdDate;
-    }
-
-    function getLastDate() public view returns (uint256) {
-        return lastDate;
-    }
-    
-    function getContributions() public view returns (uint256) {
-        return address(this).balance;
+    function getCampaignDetails() public view 
+        returns (address, string memory, string memory, uint256, Request[] memory, uint256, uint256, uint256, uint256) {
+            return (
+                manager,
+                campaignName,
+                campaignProduct,
+                minimumDonation,
+                requests,
+                backedBy,
+                createdDate,
+                lastDate,
+                address(this).balance
+            );
     }
     
     function createRequestId(string memory _description, uint256 _amount, address _recipient) internal pure returns (uint256) {
@@ -101,6 +76,8 @@ contract Campaign {
             canApprove[msg.sender] = true;
             backedBy++;
         }
+
+        emit ContributionToCampaign(msg.sender, address(this), msg.value);
     }
 
     function createRequest(string memory _description, uint256 _amount, address payable _recipient) public onlyManager {
@@ -117,6 +94,8 @@ contract Campaign {
 
         requestExists[newRequest.id] = true;
         requests.push(newRequest);
+
+        emit CampaignRequestCreated(_recipient, _amount);
     }
 
     function approveRequest(uint256 _index) public {
@@ -127,6 +106,8 @@ contract Campaign {
 
         hasApproved[myRequest.id][msg.sender] = true;
         myRequest.approvalCount++;
+
+        emit CampaignRequestApproved(myRequest.id);
     }
 
     function finalizeRequest(uint256 _index) public onlyManager {
@@ -138,6 +119,8 @@ contract Campaign {
 
         myRequest.complete = true;
         myRequest.recipient.transfer(myRequest.amount);
+
+        emit CamapignRequestFinalized(myRequest.id);
     }
 
 }

@@ -5,12 +5,12 @@ module.exports = async function(deployer, network, accounts) {
 	await deployer.deploy(Factory);
 	const factory = await Factory.deployed();
 
-	await factory.createCampaign(
-		1000,
-		300,
-		'Test Campaign',
-		'This campaign is for testing the functionality of platform'
-	);
+	// await factory.createCampaign(
+	// 	1000,
+	// 	300,
+	// 	'Test Campaign',
+	// 	'This campaign is for testing the functionality of platform'
+	// );
 
 	// await deployer.deploy(
 	// 	Campaign,
