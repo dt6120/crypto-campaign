@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Web3 from 'web3';
 import Factory from '../build/contracts/Factory.json';
 import Campaign from '../build/contracts/Campaign.json';
 import Home from './HomeComponent';
 import CampaignList from './CampaignListComponent';
+import Spinner from './Spinner';
 
 class Main extends Component {
 	async componentDidMount() {
@@ -90,21 +90,21 @@ class Main extends Component {
   render() {
   	let account, deployedCampaigns;
   	if (this.state.loading) {
-  		deployedCampaigns = <div className="container"><h4>Loading...</h4></div>
-  		account = <h5>Loading...</h5>
+  		deployedCampaigns = Spinner
+  		account = Spinner
   	} else {
   		deployedCampaigns = <CampaignList list={this.state.campaignList}/>
-  		account = <h5>{this.state.account}</h5>
+  		account = this.state.account;
   	}
 
     return (
       <div className="App">
-      	<Navbar dark color="secondary">
+      	<nav className="nav-wrapper">
       		<div className="container">
-      			<NavbarBrand href="/">Crypto Campaign</NavbarBrand>
-      			{account}
+			  	<a class="brand-logo" href="/">Crypto-Campaign</a>
+      			<span className="right">Account connected: <b>{account}</b></span>
       		</div>
-      	</Navbar>
+      	</nav>
       	<Home />
       	{deployedCampaigns}
       </div>
