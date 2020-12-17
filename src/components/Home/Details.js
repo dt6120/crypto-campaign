@@ -3,6 +3,7 @@ import web3 from '../../ethereum/web3';
 import Campaign from '../../ethereum/campaign';
 import { Link } from 'react-router-dom';
 import { DetailCard } from '../UI/Helper';
+import Spinner from "../Spinner";
 
 class Details extends Component {
   state = {
@@ -22,7 +23,7 @@ class Details extends Component {
   fetchSummary = async () => {
     this.campaign = Campaign(this.props.match.params.id);
     let summary = await this.campaign.methods.getSummary().call();
-    //though the above summary var looks like an array, however, it's an object with keys beint 0,1...
+    //though the above summary var looks like an array, however, it's an object with keys being 0,1...
 
     summary = {
       minimumContribution: summary[0],
@@ -198,7 +199,7 @@ class Details extends Component {
           <div className="text-center">{form}</div>
           {errorAlert}
           {successAlert}
-          <div className="row">{this.renderDetails()}</div>
+          <div className="grid">{this.renderDetails()}</div>
           <div className="text-center mt-5">
             <Link to={`${this.props.match.url}/requests`}>
               <button className="grey btn btn-lg btn-info w-50">
@@ -209,7 +210,7 @@ class Details extends Component {
         </div>
       );
     } else {
-      return <div />;
+      return <Spinner/>;
     }
   }
 }

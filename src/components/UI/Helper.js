@@ -35,7 +35,7 @@ export const DetailCard = props => {
   return (
     <div className="col-md-5 mt-5 animated fadeIn">
       <div className="z-depth-3">
-        <div className="card grey white-text" style={{ height: 'auto', width: "auto" , padding: "20px 20px"}}>
+        <div className="card grey white-text" style={{ height: 'auto', width: "auto" , padding: "10px 10px"}}>
 
             <div className="card-body">
               <h2 className="amber-text">{props.title}</h2>
