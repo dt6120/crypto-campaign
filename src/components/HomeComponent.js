@@ -3,15 +3,14 @@ import React, { Component } from 'react';
 class Home extends Component {
 	render() {
     return (
-      <div className="mt-1">
-        <div className="jumbotron">
-          <h1 className="container">Welcome to Crypto Campaign</h1>
+      <div className="container">
+          <h1 className="section center">Welcome to Crypto Campaign</h1>
+        <div className="section center">
+          <button className="waves-effect waves-light btn">View Campaigns</button>&nbsp;
+          <button class="btn waves-effect waves-light" type="submit" name="action">Create Campaign
+          </button>
         </div>
-        <div className="container mb-5">
-          <button className="btn btn-outline-info">View Campaigns</button>&nbsp;
-          <button className="btn btn-outline-success">Create Campaign</button>
-        </div>
-        <hr className="container"></hr>
+        <div className="divider"></div>
       </div>
     );
 	}
