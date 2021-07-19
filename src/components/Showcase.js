@@ -39,9 +39,9 @@ class Showcase extends Component {
           <div className="mt-3 mb-3">
             You are on the{' '}
             <strong>{this.state.otherNetwork.toUpperCase()}</strong> network. At
-            this moment in time, Ethstarter operates only on the{' '}
+            this moment in time, Crypto-Campaign operates only on the{' '}
             <strong>Rinkeby</strong> network. Therefore, in order to use
-            Ethstarter, please switch the network type in your Metamask extension
+            this site, please switch the network type in your Metamask extension
             to Rinkeby.
           </div>
         </div>

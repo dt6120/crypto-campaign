@@ -81,7 +81,7 @@ class Create extends Component {
         >
           Cheers! Your campaign is successfully created and campaign's smart
           contract is deployed on the Ethereum blockchain. <br />
-          That's the address:
+          Address:
           <strong className="ml-2" style={{ fontSize: '24px' }}>
             {this.state.campaign_address}
           </strong>
@@ -98,7 +98,7 @@ class Create extends Component {
       <ol className="breadcrumb valign-wrapper grey">
         <li>
           <Link to="/" className="breadcrumb-item white-text">
-            Ethstarter
+            Crypto-Campaign
           </Link>
         </li>
         <li>
